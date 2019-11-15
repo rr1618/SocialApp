@@ -63,8 +63,8 @@ $(".custom-file-input").on("change", function() {
             {% for post in posts.items %}
 
                 <h2 class="font-weight-bold {{ post.sno }}">{{ post.post_title }}</h2>
-                <h7 id="po{{ post.sno }}">{{ post.post }}</h7>
-                <h8 class="font-italic">Posted on {{ post.date }}</h8>
+                <h7 id="po{{ post.sno }}">{{ post.post }}</h7><br>
+                <h8 class="font-italic">Posted on {{ post.date }}</h8><br>
                 <a id="ed{{ post.sno }}" class="btn btn-success"  onclick="onedit({{ post.sno }})" href="#">Edit</a>
                 <a id="sa{{ post.sno }}" class="btn btn-primary"  onclick="saveChange({{ post.sno }})" href="#"  style="display: none">Save</a>
                 <a class="btn btn-danger" onclick="delet({{ post.sno }})" href="#">Delete</a>
