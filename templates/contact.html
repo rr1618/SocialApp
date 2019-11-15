@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% block content %}
+        {% if session['user']=="" %}
+        <script>
+        $("#logout").hide();
+        $("#myDashboard").hide();
+        $("#login").show();
+        </script>
+    {% endif %}
+            {% if session['user']%}
+        <script>
+        $("#logout").show();
+        $("#myDashboard").show();
+        $("#login").hide();
+        </script>
+    {% endif %}
+
+    <link rel="stylesheet" href="{{ url_for ('static',filename="css/customcss/contact.css") }}">
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="{{ url_for('static',filename="img/about1.jpg") }}" alt="First slide">
+        <div class="carousel-caption">
+            <h1 class="display-1 font-weight-bold">Contact Us</h1>
+        </div>
+    </div>
+
+  </div>
+</div>
+<div class="container contact-form">
+            <form method="post" action="/contact">
+               <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Your Name *" value="" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="email"  id="email" class="form-control" placeholder="Your Email *" value="" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="phone" id="phone" class="form-control" placeholder="Your Phone Number *" value="" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="btnSubmit" class="btnContact" id="btnSubmit" value="Send Message" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <textarea name="message" class="form-control" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </form>
+</div>
+{% endblock %}

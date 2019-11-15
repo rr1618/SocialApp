@@ -1,0 +1,101 @@
+{% extends 'layout.html' %}
+{% block content %}
+    {% if session['user']%}
+        <script>
+        $("#logout").show();
+        $("#myDashboard").show();
+        $("#login").hide();
+        </script>
+    {% endif %}
+
+    <style>
+    .dashboard{
+        width: 80%;
+        margin-bottom: 5%;
+    }
+    .form-group{
+        padding: 2%;
+        display: none;
+    }
+    </style>
+     <script rel="script" src="{{ url_for('static',filename="js/customjs/dashboard.js") }}"></script>
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="{{ url_for('static',filename="img/dash.jpg") }}" alt="First slide">
+        <div class="carousel-caption ">
+            <h1 class="font-weight-bold display-1">WELCOME  <label class="font-weight-light text-dark">{{ cur_usr }}</label></h1>
+        </div>
+    </div>
+
+  </div>
+</div>
+    <script>
+// Add the following code if you want the name of the file appear on select
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
+    <div class="d-flex float-right">
+        <button type="button" class="btn btn-warning" onclick="edit()">Add Post</button>
+    </div>
+    <div id="edit" >
+        <div class="container dashboard">
+    <form class="form-group" method="post" action="/dashboard/submit">
+        <div class="form-group">
+            <input type="text" id="post_title" name="post_title" class="form-control" placeholder="Title*" value="" required>
+        </div>
+        <div class="custom-file mb-3">
+            <input type="file" class="custom-file-input" id="customFile" name="filename">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <textarea name="post" id="post" class="form-control" placeholder="POST" style="width: 100%; height: 150px;"></textarea>
+                 </div>
+             </div>
+        <div class="form-group">
+            <button type="submit" name="btnSubmit"  class="btn btn-danger" id="btnSubmit" value="Send Message"> Submit</button>
+        </div>
+    </form>
+            <hr class="form-group" >
+            {% for post in posts.items %}
+
+                <h2 class="font-weight-bold {{ post.sno }}">{{ post.post_title }}</h2>
+                <h7 id="po{{ post.sno }}">{{ post.post }}</h7>
+                <h8 class="font-italic">Posted on {{ post.date }}</h8>
+                <a id="ed{{ post.sno }}" class="btn btn-success"  onclick="onedit({{ post.sno }})" href="#">Edit</a>
+                <a id="sa{{ post.sno }}" class="btn btn-primary"  onclick="saveChange({{ post.sno }})" href="#"  style="display: none">Save</a>
+                <a class="btn btn-danger" onclick="delet({{ post.sno }})" href="#">Delete</a>
+                <hr>
+
+            {% endfor %}
+               <div class="clearfix">
+
+                {% if posts.has_next %}
+                    <a class="btn btn-primary float-right" href="/dashboard/{{posts.next_num}}" >Old Posts →</a>
+                    {% else %}
+                    <a class="btn btn-primary float-right" href="/dashboard/{{posts.next_num}}" style="display: none">Old Posts →</a>
+                {% endif %}
+                    <label style="padding-right: 100px;padding-left: 100px"></label>
+                {% for page in posts.iter_pages() %}
+                {% if page%}
+                                    {% if posts.page==page %}
+                <a class="btn btn-info mb-4 active" href="/dashboard{{ page }}">{{ page }}</a>
+                        {% else %}
+                        <a class="btn btn-outline-info mb-4 " href="/dashboard/{{ page }}">{{ page }}</a>
+                                        {% endif %}
+                {% endif %}
+               {% endfor %}
+
+                {% if posts.has_prev %}
+                    <a class="btn btn-primary float-left" href="/dashboard/{{posts.prev_num}}">New Posts →</a>
+                    {% else %}
+                    <a class="btn btn-primary float-left" href="/dashboard/{{posts.prev_num}}" style="display: none">New Posts→</a>
+                {% endif %}        </div>
+    </div>
+    </div>
+
+
+{% endblock %}

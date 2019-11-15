@@ -1,0 +1,13 @@
+{
+  "home":
+  {
+    "caption1": "Rahul",
+    "caption2": "Sameer",
+    "caption3": "Rohit",
+    "local_uri": "mysql://root:@localhost/blog",
+    "prod_uri": "mysql://root:@localhost/blog",
+    "no_of_post": 3
+
+  }
+
+}

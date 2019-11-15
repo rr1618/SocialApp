@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% block content %}
+        {% if session['user'] %}
+        <script>
+        $("#logout").show();
+        $("#myDashboard").show();
+        $("#login").hide();
+        </script>
+        {% else %}
+        <script>
+        $("#logout").hide();
+        $("#myDashboard").hide();
+        $("#login").show();
+        </script>
+
+    {% endif %}
+    <link rel="stylesheet" href="{{ url_for('static',filename="css/customcss/registration.css") }}">
+    <script rel="script" src="{{ url_for('static',filename="js/customjs/registration.js") }}"></script>
+    <form name="reg" id="reg" action="/registration" onsubmit="return submitcheck()" method="post">
+    <div class="container">
+<div class="col-md-4 input-group-sm">
+    <h2 class="text-black-50 justify-content-center">Register User</h2>
+    <label class="text-dark">First Name</label>
+    <input class="form-control" id="fname" name="f_name" value="" onblur="fcheck()" placeholder="First Name" required>
+    <h7 id="checkfname" class="text-danger"></h7><br>
+    <label class="text-dark">Last Name</label>
+    <input class="form-control" id="lname" name="l_name" value="" onblur="lcheck()" placeholder="Last Name" required>
+    <h7 id="checklname" class="text-danger"></h7><br>
+    <label class="text-dark">Username</label>
+    <input class="form-control" id="u_name" name="u_name" value="" onblur="ucheck()" placeholder="Username" required>
+    <h7 id="checkuname" class="text-danger"></h7><br>
+    <label class="text-dark">Email</label>
+    <input class="form-control" id="email" name="email" value="" onblur="emailcheck()" placeholder="Email" required>
+    <h7 id="checkemail" class="text-danger"></h7><br>
+    <label class="text-dark">Password</label>
+    <input class="form-control" id="npass" type="password" name="npass"  value="" onblur="passcheck()" placeholder="Password" required>
+    <h7 id="checkpass" class="text-danger"></h7><br>
+    <label class="text-dark">Confirm Password</label>
+    <input class="form-control"  type="password" id="cpass" name="cpass" value="" onblur="cpasscheck()" placeholder="Confirm Password" required>
+    <h7 id="checkcpass" class="text-danger"></h7><br>
+    <label class="text-dark">Contact Number</label>
+    <input class="form-control" id="phone" name="phone" value="" onblur="phonecheck()" placeholder="Contact Number" required>
+    <h7 id="checkphone" class="text-danger"></h7><br>
+    <button class="btn-primary justify-content-center"  >Submit</button>
+</div>
+        <div class="col-md-4 input-group-sm">
+            <p class="text-success">{{ success }}</p>
+        </div>
+</div>
+    </form>
+
+{% endblock %}
